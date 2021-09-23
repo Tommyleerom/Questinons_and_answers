@@ -1,0 +1,22 @@
+<h1 class="mb-4">Questions</h1>
+
+<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg' %>
+<% @questions.each do |q| %>
+  <article class="card mt-3">
+    <div class="card-body">
+      <h4><%= q.title %></h2>
+
+      <section class="card-text">
+        <p class="my-2">
+          <%= q.body %>
+        </p>
+      </section>
+
+      <%= link_to 'Show', question_path(q), class: 'btn btn-primary' %>
+      <%= link_to 'Edit', edit_question_path(q), class: 'btn btn-secondary' %>
+      <!-- q - нужно передать, для того чтобы подставить :id из метода edit в контроллере questions @question = Question.find_by id: params[  :id  ] -->
+      <%= link_to 'Destroy', question_path(q), class: 'btn btn-danger',
+        data: {method: :delete, confirm: 'Are you sure?'} %>
+    </div>
+  </article>
+<% end %>
