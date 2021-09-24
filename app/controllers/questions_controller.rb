@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :set_question!, only: %i[edit update destroy show]
 
   def index
     @questions = Question.all
@@ -19,12 +20,9 @@ class QuestionsController < ApplicationController
   end
 
   def edit # edit -форму отображает, а update обрабатывает
-    @question = Question.find_by id: params[:id]
-                                #id - это столбец из базы данных по которому будем искать id который указан в params
   end
 
   def update # update - форму обрабатывает, а edit отображает
-    @question = Question.find_by id: params[:id]
     if @question.update question_params
       flash[:success] = 'Question updated!'
       redirect_to questions_path
@@ -34,7 +32,6 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find_by id: params[:id]
     if @question.destroy
       flash[:success] = 'Question deleted!'
       redirect_to questions_path
@@ -44,10 +41,16 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find_by id: params[:id]
+    @answer = @question.answers.build # build т.к. мы создаем новый объект через ассоциации
+    @answers = @question.answers.order created_at: :desc
   end
 
   private
+
+  def set_question!
+    @question = Question.find params[:id]
+                                #id - это столбец из базы данных по которому будем искать id который указан в params
+  end
 
   def question_params
     params.require(:question).permit(:title, :body)
