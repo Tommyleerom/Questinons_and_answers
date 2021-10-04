@@ -1,6 +1,11 @@
+<% provide :page_title, 'Questions' %>
+
 <h1 class="mb-4">Questions</h1>
 
-<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg' %>
+<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg mb-3' %>
+
+<%== pagynate %>
+
 <% @questions.each do |q| %>
   <article class="card mt-3">
     <div class="card-body">
@@ -8,7 +13,7 @@
 
       <section class="card-text">
         <p class="my-2">
-          <%= q.body %>
+          <%= truncate strip_tags(q.body), length: 80, omission: '... (continued)' %>
         </p>
       </section>
 
@@ -20,3 +25,5 @@
     </div>
   </article>
 <% end %>
+
+<%== pagynate %> <!-- == заменяет вспомогательную функцию raw т.е. этот текст следует обрабатывать как html -->

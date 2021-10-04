@@ -2,11 +2,11 @@ class QuestionsController < ApplicationController
   before_action :set_question!, only: %i[edit update destroy show]
 
   def index
-    @questions = Question.all
+    @pagy, @questions = pagy Question.order(created_at: :desc)
   end
 
   def new # new - форму отображает, а create обрабатывает
-    @question = Question.new
+    @pagy, @question = pagy Question.order(created_at: :desc)
   end
 
   def create # create - форму обрабатывает, а new отображает
@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.build # build т.к. мы создаем новый объект через ассоциации
-    @answers = @question.answers.order created_at: :desc
+    @pagy, @answers = pagy @question.answers.order(created_at: :desc)
   end
 
   private

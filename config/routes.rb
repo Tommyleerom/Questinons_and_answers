@@ -1,7 +1,23 @@
 Rails.application.routes.draw do
   root 'pages#index'
+
+  resources :users, only: %i[new create]
+
   resources :questions do
     resources :answers, only: %i[create destroy edit update]
   end
 
 end
+
+# index - запрашивает все элементы из БД и записывает в переменную @elements, а в index.html.erb - уже доступна переменная @elements
+
+# new - записывет в память один элемент, для последующего сохранения через create, а в new.html.erb отображается сама форма для записи элемента в память
+# create - логика сохранения элемента из new в БД
+
+# edit - отображает форму для редактирования конкретного элемента, а в edit.html.erb отображается форма для редактирования
+# update - обработывает эту форму и сохраняет в БД
+# show - отображает конкретный элемент
+
+# destroy - уничтожает элемент
+
+
