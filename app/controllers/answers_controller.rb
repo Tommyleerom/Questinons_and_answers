@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
   before_action :set_answer!, only: %i[destroy edit update]
 
@@ -8,18 +10,21 @@ class AnswersController < ApplicationController
       flash[:success] = 'Answer created!'
       redirect_to question_path(@question)
     else
-      @pagy, @answers = pagy @question.answers.order(created_at: :desc) # эту строчку нужно вставить т.к. в противном случае эта переменная не будет определена и при отправлке пустой формы будет nil и соответствующая ошибка, а render в отличие от redirect_to не обновляет переменные
+      @pagy, @answers = pagy @question.answers.order(created_at: :desc)
+      # эту строчку нужно вставить т.к. в противном случае эта переменная
+      # не будет определена и при отправлке пустой формы будет nil и соответствующая
+      # ошибка, а render в отличие от redirect_to не обновляет переменные
       render '/questions/show'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @answer.update answer_params
       flash[:success] = 'Answer updated!'
-      redirect_to question_path(@question, anchor: "answer-#{@answer.id}") # будет редиректиться сразу к отредактированному ответу
+      redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
+      # будет редиректиться сразу к отредактированному ответу
     else
       render :edit
     end
@@ -36,7 +41,8 @@ class AnswersController < ApplicationController
 
   private
 
-  def set_answer! # ! - т.к. этот метод может вернуть ошибку если искомый id не существует
+  # ! - т.к. этот метод может вернуть ошибку если искомый id не существует
+  def set_answer!
     @question = Question.find params[:question_id]
     @answer = @question.answers.find params[:id]
   end
@@ -44,5 +50,4 @@ class AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:body)
   end
-
 end

@@ -7,7 +7,8 @@
     </div>
 
     <div class="col-sm-10">
-      <%= f.email_field :email, placeholder: 'email', class: 'form-control form-control-lg' %>
+      <%= f.email_field :email, value: @user.email, placeholder: 'email', class: 'form-control form-control-lg' %>
+      <!-- мы можем использовать params[:email], т.к. в session_controllere в методе create в случае неудачи (else) мы используем render а не redirect_to, при рендере параметры при обновлении страницы не теряются -->
     </div>
   </div>
 
@@ -17,7 +18,7 @@
     </div>
 
     <div class="col-sm-10">
-      <%= f.text_field :name, placeholder: 'name', class: 'form-control form-control-lg' %>
+      <%= f.text_field :name, value: @user.name, placeholder: 'name', class: 'form-control form-control-lg' %>
     </div>
   </div>
 
@@ -41,5 +42,20 @@
     </div>
   </div>
 
-  <%= f.submit "Register", class: 'btn btn-primary btn-lg' %>
+  <% unless @user.new_record? %>
+    <div class="mb-3 row">
+      <div class="col-sm-2 col-form-label">
+        <%= f.label :old_password %>
+      </div>
+
+      <div class="col-sm-10">
+        <%= f.password_field :old_password, class: 'form-control form-control-lg' %>
+      </div>
+    </div>
+  <% end %>
+
+
+
+
+  <%= f.submit (@user.new_record? ? "Register" : "Save"), class: 'btn btn-primary btn-lg' %> <!-- new_record? - проверяет записан ли данный user в БД -->
 <% end %>

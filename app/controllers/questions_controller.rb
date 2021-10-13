@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionsController < ApplicationController
   before_action :set_question!, only: %i[edit update destroy show]
 
@@ -5,11 +7,13 @@ class QuestionsController < ApplicationController
     @pagy, @questions = pagy Question.order(created_at: :desc)
   end
 
-  def new # new - форму отображает, а create обрабатывает
+  # new - форму отображает, а create обрабатывает
+  def new
     @pagy, @question = pagy Question.order(created_at: :desc)
   end
 
-  def create # create - форму обрабатывает, а new отображает
+  # create - форму обрабатывает, а new отображает
+  def create
     @question = Question.new question_params
     if @question.save
       flash[:success] = 'Question created!'
@@ -19,10 +23,11 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit # edit -форму отображает, а update обрабатывает
-  end
+  # edit -форму отображает, а update обрабатывает
+  def edit; end
 
-  def update # update - форму обрабатывает, а edit отображает
+  # update - форму обрабатывает, а edit отображает
+  def update
     if @question.update question_params
       flash[:success] = 'Question updated!'
       redirect_to questions_path
@@ -49,11 +54,10 @@ class QuestionsController < ApplicationController
 
   def set_question!
     @question = Question.find params[:id]
-                                #id - это столбец из базы данных по которому будем искать id который указан в params
+    # id - это столбец из базы данных по которому будем искать id который указан в params
   end
 
   def question_params
     params.require(:question).permit(:title, :body)
   end
-
 end

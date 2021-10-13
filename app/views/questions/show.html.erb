@@ -19,8 +19,8 @@
 
 <h2 class="mt-5">Answers</h2>
 
-<%== pagynate %>
+<%== pagynate @pagy %>
 
 <%= render partial: 'answers/answer', collection: @answers, as: :answer, locals: {question: @question} %> <!-- @answers коллекция (вроде массива) и проитерирует каждый элемент в соответсвии с одноименным паршилом answer.html.erb и каждый элемент будет называться answer, локальные переменные будут @question -->
 
-<%== pagynate %>
+<%== pagynate @pagy %>
