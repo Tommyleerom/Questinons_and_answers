@@ -1,4 +1,10 @@
-# frozen_string_literal: true
+w = 'romantizm'
 
-h = { 'user' => { 'email' => 'rom3@gmail.com' } }
-p h['user']['email']
+def rev(word)
+  (word.length / 2).times do |i|
+    word[i], word[-i-1] = word[-i-1], word[i]
+  end
+  word
+end
+
+p rev(w)

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers, only: %i[create destroy edit update]
   end
+
+  namespace :admin do # удобно т.к. логику админа мы будем описывать в отдельном контроллере users
+    resources :users, only: %i[index create]
+  end
 end
 
 # index - запрашивает все элементы из БД и записывает в переменную @elements,

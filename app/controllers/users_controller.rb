@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-    # @user.name = @user.email.split('@')[0] if @user.name.blank?
+    @user.name = @user.email.split('@')[0] if @user.name.blank?
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to the app, #{current_user.name}"
