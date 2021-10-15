@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
     @question = Question.find params[:question_id]
     @answer = @question.answers.build answer_params
     if @answer.save
-      flash[:success] = 'Answer created!'
+      flash[:success] = t('.success')
       redirect_to question_path(@question)
     else
       @pagy, @answers = pagy @question.answers.order(created_at: :desc)
@@ -22,7 +22,7 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update answer_params
-      flash[:success] = 'Answer updated!'
+      flash[:success] = t('.success')
       redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
       # будет редиректиться сразу к отредактированному ответу
     else
@@ -32,7 +32,7 @@ class AnswersController < ApplicationController
 
   def destroy
     if @answer.destroy
-      flash[:success] = 'Answer deleted!'
+      flash[:success] = t('.success')
       redirect_to question_path(@question)
     else
       render json: @answer.errors

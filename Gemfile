@@ -27,6 +27,7 @@ gem 'caxlsx', '~> 3.1'  # for excel files
 gem 'caxlsx_rails', '~> 0.6' # for create excel files
 gem 'rubyXL', '~> 3.4' # read excel files
 gem 'activerecord-import', '~> 1.2' # create more than one record at a time
+gem 'rails-i18n', '~> 6'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

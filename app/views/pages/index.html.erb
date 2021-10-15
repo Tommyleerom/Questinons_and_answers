@@ -1,3 +1,7 @@
 <h1>Hello <%= user_signed_in? ? current_user.name : ' folks' %></h1>
+<% provide :page_title %>
+
+<h2><%= t '.title' %></h2>
+<!-- если файл лежит в соответствующей директории pages и имеет соответствующее представление index, то можно не писать pages.index.title, а писать просто .title -->
 
 &copy; <%= Time.now %>
